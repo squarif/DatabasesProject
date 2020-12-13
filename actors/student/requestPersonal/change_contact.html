@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+<style>
+    .container {
+        background-image: url("image.jpg");
+        background-size: cover;
+        opacity: 0.9;
+        color: white;
+        font-weight: 500;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .item {
+        margin: 0.4em;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .button1 {
+        cursor: pointer;
+        /* padding: 1em; */
+        border-radius: 12px;
+        height: 3vh;
+        text-align: center;
+        width: 20%;
+        font-size: 1rem;
+        border: 2px solid #000;
+    }
+</style>
+
+<head>
+    <title>Contact Change Request</title>
+</head>
+
+<body>
+    <form action="change_contact.php" method="get">
+        <div class="container">
+            <form action="change_password.php" method="get">
+                <div class="item">
+                    <label for="id">Enter ID:</label>
+                    <input type="text" name="student_ID">
+                </div>
+                <div class="item">
+                    <label for="id">New Contact</label>
+                    <input type="text" name="newcontact">
+                </div>
+                <button class="button1 btn-info" type="submit">
+                    Submit
+                </button>
+        </div>
+
+
+    </form>
+
+</body>

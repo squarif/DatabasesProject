@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Search Criteria</title>
+    <link rel="stylesheet" href="CSSFILE.css" />
+  </head>
+  <body>
+    <form action="info.php" method="get">
+      <div class="container">
+        <h2>Category Selection</h2>
+
+        <div class="select-box">
+          <div class="options-container">
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="faculty"
+                name="category"
+                value="Faculty"
+              />
+              <label for="faculty">Faculty</label>
+            </div>
+
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="student"
+                name="category"
+                value="Students"
+              />
+              <label for="student">Students</label>
+            </div>
+
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="courses"
+                name="category"
+                value="Courses"
+              />
+              <label for="courses">Courses Offered</label>
+            </div>
+          </div>
+
+          <div class="selected">Search Category</div>
+        </div>
+        <input class="button" type="submit" value="Search" />
+      </div>
+    </form>
+    <script src="main.js"></script>
+  </body>
+</html>

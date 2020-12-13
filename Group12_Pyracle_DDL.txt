@@ -1,0 +1,185 @@
+BEGIN TRANSACTION;
+
+	CREATE TABLE helpdesk
+	(helpdesk_id 	varchar(8),
+	 name			varchar(50) not null,
+	 password		varchar(20) not null,
+	 primary key (helpdesk_id)
+	);
+	
+	CREATE TABLE admin
+	(admin_id		varchar(8),
+	 name 			varchar(20) not null,
+	 password	 	varchar(10) not null,	
+	 primary key (admin_id)	
+	);
+	
+	CREATE TABLE student
+	(student_id		varchar(8),
+	 name 			varchar(20) not null,
+	 password	 	varchar(10) not null,
+	 address 		varchar(50),
+	 dept_name		varchar(20),
+	 contact		varchar(12) not null,	
+	 primary key (student_id)	
+	);
+	
+	CREATE TABLE department
+	(dept_name		varchar(20),
+	 building 		varchar(20),
+	 primary key (dept_name, building)
+	);
+	
+	CREATE TABLE faculty
+	(faculty_id		varchar(8),
+	 name 			varchar(20) not null,
+	 password	 	varchar(10) not null,
+	 address 		varchar(50),
+	 dept_name		varchar(20),
+	 contact		varchar(12) not null,
+	 salary 		numeric(8,2) check (salary > 0),	
+	 primary key (faculty_id)
+	 foreign key (dept_name) references department 
+	 	on delete set null
+	);
+	
+	CREATE TABLE change_requests
+	(student_id		varchar(8), 
+	 reference_no	numeric(1,0) check ( refrence_no < 3),
+	 info 			varchar(50),
+	 foreign key (student_id) references student
+		on delete set null
+	);
+	
+	CREATE TABLE time_slot
+	(time_slot_id	varchar(4),
+	 day			varchar(1),
+	 start_hr		numeric(2) check (start_hr >= 0 and start_hr < 24),
+	 start_min		numeric(2) check (start_min >= 0 and start_min < 60),
+	 end_hr			numeric(2) check (end_hr >= 0 and end_hr < 24),
+	 end_min		numeric(2) check (end_min >= 0 and end_min < 60),
+	 primary key (time_slot_id, day, start_hr, start_min)
+	);
+	
+	CREATE TABLE venue
+	(building		varchar(20),
+	 room_number	varchar(7),
+	 capacity		numeric(4,0) check (capacity > 20),
+	 primary key (building, room_number)
+	 foreign key(building) references department
+	 	on delete cascade
+	);
+	
+	CREATE TABLE course
+	(course_id		varchar(8), 
+	 title			varchar(50), 
+	 dept_name		varchar(20),
+	 credits		numeric(1,0) check (credits > 0),
+	 primary key (course_id),
+	 foreign key (dept_name) references department 
+	 	on delete set null
+	);
+
+	CREATE TABLE section
+	(
+	faculty_id		varchar(8),
+	course_id		varchar(8), 
+		sec_id		varchar(8),
+	 semester		varchar(6) check (semester in ('Fall', 'Winter', 'Spring', 'Summer')), 
+	 year			numeric(4,0) check (year > 1701 and year < 2100), 
+	 building		varchar(15),
+	 room_number	varchar(7),
+	 time_slot_id	varchar(4),
+	 ta_id			varchar(8),		
+	 primary key (course_id, sec_id, semester, year),
+	 foreign key (ta_id) references student(student_id),
+	 foreign key (course_id) references course
+		on delete cascade,
+	 foreign key (building, room_number) references venue
+		on delete set null
+	);
+
+	CREATE TABLE ta_application
+	(student_id		varchar(8),
+	 course_id		varchar(8),
+	 sec_id 		varchar(8),
+	 foreign key (student_id) references student
+	 	on delete cascade,
+	 foreign key (course_id, sec_id) references section
+	 	on delete cascade	 
+	);
+	
+	CREATE TABLE prereq
+	(course_id		varchar(8), 
+	 prereq_id		varchar(8),
+	 primary key (course_id, prereq_id),
+	 foreign key (course_id) references course
+		on delete cascade,
+	 foreign key (prereq_id) references course
+	 	on delete set null
+	);
+
+	CREATE TABLE enrolled
+	(student_id		varchar(8), 
+	 course_id		varchar(8),
+	 sec_id			varchar(8), 
+	 semester		varchar(6),
+	 year			numeric(4,0),
+	 grade		    varchar(2) check (grade in ('A+','A','A-','B+','B','B-','C+','C','C-','D','F')),
+	 marks			numeric(5,2) check (marks <= 100 and marks>= 0),
+	 primary key (student_id),
+	 foreign key (course_id,sec_id, semester, year) references section
+		on delete cascade,
+	 foreign key (student_id) references student
+		on delete cascade
+	);
+	
+	CREATE TABLE lecturer
+	(faculty_id		varchar(5), 
+	 course_id		varchar(8),
+	 sec_id			varchar(8), 
+	 semester		varchar(6),
+	 year			numeric(4,0),
+	 primary key (faculty_id, course_id, sec_id, semester, year),
+	 foreign key (course_id,sec_id, semester, year) references section
+		on delete cascade,
+	 foreign key (faculty_id) references faculty
+		on delete cascade
+	);
+	
+	CREATE TABLE evaluation
+	(faculty_id		varchar(5),
+	 course_id		varchar(8),
+	 student_id		varchar(5),
+	 sec_id			varchar(8),
+	 year			numeric(4,0),
+	 semester		varchar(6), 
+	 delivery		numeric(2,0) check (delivery >= 0 and delivery <= 10),
+	 management		numeric(2,0) check (management >= 0 and management <= 10),
+	 engagement  	numeric(2,0) check (engagement >= 0 and engagement <= 10),
+	 comments		varchar(200) not null,
+	 primary key (faculty_id, course_id, student_id, sec_id, year, semester)
+	 foreign key (student_id) references student
+	 	on delete cascade
+	 foreign key (faculty_id) references faculty
+	 	on delete cascade
+	 foreign key (course_id, sec_id, year, semester) references section 
+	 	on delete cascade
+	);
+	
+	CREATE TABLE enrollment_requests
+	(course_id 		varchar(8),
+	 sec_id 		varchar(8),
+	 student_id		varchar(5),
+	 time_stamp		TIMESTAMP,
+	 primary key (course_id, sec_id, student_id),
+	 foreign key (student_id) references student
+	 	on delete cascade
+	 foreign key (course_id, sec_id) references section
+	 	on delete cascade
+	);
+	
+INSERT INTO NAMES VALUES(1,'Tom');
+COMMIT;
+
+
