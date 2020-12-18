@@ -1,6 +1,7 @@
 <?php
 
     $instructor_id = 22100303;
+    $instructor_id = $_POST['instructor_ID'];
     $current_sem = "Fall";
     $current_year = "2020";
 
