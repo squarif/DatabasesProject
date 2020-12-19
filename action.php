@@ -1,5 +1,10 @@
 <?php
 
+  // Start the session
+session_start();
+
+
+
 $actor = $_GET['actor'];
 $name = $_GET['uname'];
 $passwrd = $_GET["psw"];
@@ -25,7 +30,7 @@ if($actor == 1){
   $row = mysqli_fetch_assoc($result);
   
   if ($row['faculty_id']==$name && $row['password']==$passwrd ) {
-  
+  $_SESSION["user_id"] = $name;
     header("Location: actors/faculty.html");
   
   } else {
@@ -42,7 +47,7 @@ if($actor == 2){
   $row = mysqli_fetch_assoc($result);
   
   if ($row['helpdesk_id']==$name && $row['password']==$passwrd ) {
-  
+    $_SESSION["user_id"] = $name;
     header("Location: actors/helpdesk.html");
   
   } else {
@@ -59,7 +64,7 @@ if($actor == 3){
   $row = mysqli_fetch_assoc($result);
   
   if ($row['student_id']==$name && $row['password']==$passwrd ) {
-  
+    $_SESSION["user_id"] = $name;
     header("Location: actors/student.html");
   
   } else {
@@ -76,11 +81,11 @@ if($actor == 4){
   $row = mysqli_fetch_assoc($result);
   
   if ($row['admin_id']==$name && $row['password']==$passwrd ) {
-  
+    $_SESSION["user_id"] = $name;
     header("Location: actors/admin.html");
   
   } else {
-    
+    $_SESSION["user_id"] = $name;
     header("Location: index.html");
   
   }

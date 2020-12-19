@@ -1,9 +1,9 @@
 <?php
 
-    $servername = 'localhost';
-    $username = 'root';
-    $password = "";
-    $dbname = "id15668406_project";
+$servername = 'localhost';
+$username = 'id15668406_hammadjamal';
+$password = 's9W^-~a+PlrO]]?j';
+$dbname = 'id15668406_project';
 
     $conn = mysqli_connect($servername, $username, $password, $dbname);
 
@@ -23,7 +23,7 @@
 
     $cont = $course_ID;
 
-    $sql = "UPDATE section SET `ta_id` = '$student_ID' WHERE `course_id` = '$course_ID' AND `sec_id` = '$section_ID' ";
+    $sql = "UPDATE section SET `ta_id` = '$student_ID' WHERE `course_id` = '$course_ID' AND `section_id` = '$section_ID' ";
     if(mysqli_query($conn, $sql)){
         echo "TA Assigned";
     } else{
@@ -32,7 +32,7 @@
     
     echo "<br>";
 
-    $sql = "DELETE FROM ta_application WHERE `student_id` = '$student_ID' AND `course_id` = '$course_ID' AND `sec_id` = '$section_ID'";
+    $sql = "DELETE FROM ta_application WHERE `student_id` = '$student_ID' AND `course_id` = '$course_ID' AND `section_id` = '$section_ID'";
     if(mysqli_query($conn, $sql)){
         echo "UPDATED";
        
@@ -41,7 +41,7 @@
         echo("Error description: " . mysqli_error($conn));
     } 
 
-    // header('Location: http://localhost/Adnan/verif_TAship/.php');
+    header('Location: \actors\faculty\verify_TAship\verify_TAship_apps.php');
       
     die();
         

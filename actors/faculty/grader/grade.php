@@ -18,9 +18,9 @@
     // echo $grade_on_mean;
 
     $servername = 'localhost';
-    $username = 'root';
-    $password = "";
-    $dbname = "id15668406_project";
+$username = 'id15668406_hammadjamal';
+$password = 's9W^-~a+PlrO]]?j';
+$dbname = 'id15668406_project';
 
     $conn = mysqli_connect($servername, $username, $password, $dbname);
 
