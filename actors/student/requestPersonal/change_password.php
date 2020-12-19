@@ -8,7 +8,7 @@
     $servername = 'localhost';
     $username = 'root';
     $password = "";
-    $dbname = "demo_db";
+    $dbname = "id15668406_project";
 
     $conn = mysqli_connect($servername, $username, $password, $dbname);
 
