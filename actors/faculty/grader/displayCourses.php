@@ -25,7 +25,7 @@ $dbname = 'id15668406_project';
     }
 
     $sql = "SELECT `course_id`, `sec_id` FROM `section` 
-            WHERE `instructor_id` = '$instructor_id'
+            WHERE `faculty_id` = '$instructor_id'
                 AND `semester` = '$current_sem'
                 AND `year` = '$current_year'   
             ";

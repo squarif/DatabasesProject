@@ -22,7 +22,7 @@ $dbname = 'id15668406_project';
         echo "CONN FAILED";
     }
 
-    $sql = "SELECT `instructor_id`, `course_id`, `sec_id` FROM `faculty`, `section` WHERE `instructor_id` = '$instructor_id' AND `semester` = '$current_sem'
+    $sql = "SELECT `faculty_id`, `course_id`, `sec_id` FROM `faculty`, `section` WHERE `faculty_id` = '$instructor_id' AND `semester` = '$current_sem'
     AND `year` = '$current_year'";
     $result = mysqli_query($conn, $sql);
 

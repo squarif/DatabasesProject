@@ -18,7 +18,7 @@ if($conn == false){
     echo "CONN FAILED";
 }
 
-$sql = "INSERT INTO `change_requests` (student_id, refrence_no, info) VALUES ('$user_id', '$ref_num', '$new_contact') ";
+$sql = "INSERT INTO `change_requests` (student_id, reference_no, info) VALUES ('$user_id', '$ref_num', '$new_contact') ";
 
 if(mysqli_query($conn, $sql)){
     echo "Query SUCCESSFUL";
